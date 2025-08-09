@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Accueil - Technova </title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>  
+    Technova
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="a-propos.html">À propos</a></li>
+      <li><a href="évaluations.html">Évaluations</a></li>
+      <li><a href="contact.html">Nous contacter</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>Nos produits</h2>
+
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Rechercher un produit..." />
+      <button onclick="searchProducts()">Rechercher</button>
+    </div>
+
+    <div id="productList" class="product-list">
+      <!-- Produits insérés ici par JS -->
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 Technova 
+  </footer>
+
+  <script>
+    const products = [
+      {id:1, title:"Casque Audio Premium", description:"Son immersif et design élégant", price:89, page:"product1.html"},
+      {id:2, title:"Montre Connectée X200", description:"Suivi santé et notifications", price:120, page:"product2.html"},
+      {id:3, title:"Sac à Dos Urbain", description:"Résistant et léger", price:75, page:"product3.html"},
+      {id:4, title:"Lampe de Bureau LED", description:"Éclairage doux et réglable", price:35, page:"product4.html"},
+      {id:5, title:"Chaise Ergonomique", description:"Confort optimal pour le bureau", price:150, page:"product5.html"},
+      {id:6, title:"Enceinte Bluetooth", description:"Son puissant et portable", price:65, page:"product6.html"},
+      {id:7, title:"Tapis de Yoga", description:"Antidérapant et confortable", price:40, page:"product7.html"},
+      {id:8, title:"Clavier Mécanique", description:"Réactivité et confort de frappe", price:95, page:"product8.html"},
+      {id:9, title:"Lunettes de Soleil", description:"Protection UV et style", price:55, page:"product9.html"},
+      {id:10, title:"Appareil Photo Compact", description:"Photos haute résolution", price:220, page:"product10.html"},
+      {id:11, title:"Baskets de Course", description:"Légères et résistantes", price:80, page:"product11.html"},
+      {id:12, title:"Drone Miniature", description:"Vidéo HD et facile à piloter", price:180, page:"product12.html"},
+      {id:13, title:"Montre Vintage", description:"Style classique et précision", price:130, page:"product13.html"},
+      {id:14, title:"Casque VR", description:"Immersion totale en réalité virtuelle", price:300, page:"product14.html"},
+      {id:15, title:"Chargeur Sans Fil", description:"Rapide et pratique", price:25, page:"product15.html"},
+      {id:16, title:"Batterie Externe", description:"Grande capacité pour vos appareils", price:45, page:"product16.html"},
+      {id:17, title:"Stylo Numérique", description:"Écriture naturelle sur tablette", price:60, page:"product17.html"},
+      {id:18, title:"Tablette Graphique", description:"Création artistique facilitée", price:250, page:"product18.html"},
+      {id:19, title:"Casque Audio Sport", description:"Résistant à la sueur", price:70, page:"product19.html"},
+      {id:20, title:"Webcam HD", description:"Vidéo nette et micro intégré", price:55, page:"product20.html"}
+    ];
+
+    const productListEl = document.getElementById('productList');
+    const searchInput = document.getElementById('searchInput');
+
+    function displayProducts(list) {
+      productListEl.innerHTML = '';
+      if(list.length === 0) {
+        productListEl.innerHTML = '<p>Aucun produit trouvé.</p>';
+        return;
+      }
+      list.forEach(p => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <a href="${p.page}" style="text-decoration:none; color:inherit;">
+            <img src="images/product${p.id}.jpg" alt="${p.title}" style="width:100%; height:150px; object-fit:contain; border-bottom: 2px solid #00509e; padding-bottom:10px; margin-bottom:15px;"/>
+            <h3>${p.title}</h3>
+            <p>${p.description}</p>
+            <p class="price">${p.price} €</p>
+          </a>
+        `;
+        productListEl.appendChild(card);
+      });
+    }
+
+    function searchProducts() {
+      const query = searchInput.value.trim().toLowerCase();
+      if(query === '') {
+        displayProducts(products);
+        return;
+      }
+      const filtered = products.filter(p => p.title.toLowerCase().includes(query) || p.description.toLowerCase().includes(query));
+      displayProducts(filtered);
+    }
+
+    displayProducts(products);
+  </script>
+</body>
+</html>
